@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Cuisine Farnaj – The Real Home Chef | Order Online in Rawalpindi & Islamabad</title>
+  <meta name="description" content="Order home-style Chicken Biryani, Karahi, Nihari, Dhaba favourites, Chaat and more from Cuisine Farnaj – The Real Home Chef. Delivery across Rawalpindi & Islamabad, order via WhatsApp.">
+  <meta name="theme-color" content="#6B1B6D">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cuisine Farnaj – The Real Home Chef">
+  <meta property="og:description" content="Home-style biryani, karahi, dhaba favourites & chaat. Order online via WhatsApp.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=1200">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236B1B6D'/%3E%3Cg transform='translate(4 4)' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z'/%3E%3Cpath d='M6 17h12' stroke='%23E40066'/%3E%3C/g%3E%3C/svg%3E">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Nastaliq+Urdu:wght@500&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              purple: "#6B1B6D",
+              deep: "#4E1150",
+              pink: "#E40066",
+              pinkdark: "#C20057",
+              bg: "#F7F3F8",
+            },
+          },
+          fontFamily: {
+            sans: ["Poppins", "ui-sans-serif", "system-ui", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js" defer></script>
+
+  <!-- App scripts (order matters) -->
+  <script src="scripts/menuData.js" defer></script>
+  <script src="scripts/ui.js" defer></script>
+  <script src="scripts/carousel.js" defer></script>
+  <script src="scripts/cartManager.js" defer></script>
+  <script src="scripts/app.js" defer></script>
+</head>
+
+<body id="top" class="min-h-screen bg-brand-bg font-sans antialiased">
+  <a href="#menu" class="sr-only z-[100] rounded-lg bg-brand-pink px-4 py-2 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to menu</a>
+
+  <!-- =============== 1. Announcement bar =============== -->
+  <div class="bg-brand-deep text-[12px] text-white/90 sm:text-[13px]">
+    <div class="mx-auto flex max-w-7xl flex-col items-center gap-2 px-4 py-2 sm:flex-row sm:justify-between sm:px-6 lg:px-8">
+      <p class="flex items-center gap-2 text-center">
+        <i data-lucide="phone-call" class="h-4 w-4 shrink-0 text-pink-300"></i>
+        <span class="hidden md:inline">
+          For queries or direct orders, contact
+          <a href="tel:+9251111728687" class="font-semibold text-white underline-offset-2 hover:underline">051-111-728-687</a>
+          or WhatsApp at
+          <a href="https://wa.me/923000728687" target="_blank" rel="noopener" class="font-semibold text-white underline-offset-2 hover:underline">0300-0728-687</a>.
+        </span>
+        <span class="md:hidden">
+          Call <a href="tel:+9251111728687" class="font-semibold text-white">051-111-728-687</a>
+          · WhatsApp <a href="https://wa.me/923000728687" target="_blank" rel="noopener" class="font-semibold text-white">0300-0728-687</a>
+        </span>
+      </p>
+
+      <label class="flex items-center gap-2">
+        <i data-lucide="map-pin" class="h-4 w-4 shrink-0 text-pink-300"></i>
+        <span class="sr-only">Delivery location</span>
+        <span class="relative inline-block">
+          <select id="locationSelect" class="cursor-pointer appearance-none rounded-full bg-white/10 py-1 pl-3 pr-8 font-medium text-white ring-1 ring-white/20 transition hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-pink-400">
+            <option value="delivery" class="text-slate-900" selected>Chour Chowk, Rawalpindi / Islamabad</option>
+            <option value="pickup" class="text-slate-900">Self Pick-up · Chour Chowk Branch</option>
+          </select>
+          <i data-lucide="chevron-down" class="pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2"></i>
+        </span>
+      </label>
+    </div>
+  </div>
+
+  <!-- =============== 2. Main navigation =============== -->
+  <header id="siteHeader" class="sticky top-0 z-40 bg-brand-purple text-white shadow-lg shadow-purple-950/20">
+    <div class="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:gap-6 sm:px-6 lg:px-8">
+      <a href="#top" data-scroll-top class="flex shrink-0 items-center gap-2.5 sm:gap-3" aria-label="Cuisine Farnaj – back to top">
+        <span class="grid h-11 w-11 place-items-center rounded-2xl bg-white text-brand-purple shadow-md sm:h-12 sm:w-12">
+          <svg viewBox="0 0 24 24" class="h-6 w-6 sm:h-7 sm:w-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z"/>
+            <path d="M6 17h12" stroke="#E40066"/>
+          </svg>
+        </span>
+        <span class="leading-tight">
+          <span class="block text-[15px] font-extrabold tracking-[0.12em] sm:text-xl">CUISINE <span class="text-pink-300">FARNAJ</span></span>
+          <span class="block text-[11px] italic text-white/75 sm:text-xs">The Real Home Chef</span>
+        </span>
+      </a>
+
+      <button type="button" data-open-search class="hidden max-w-xl flex-1 items-center gap-3 rounded-full bg-white/10 px-4 py-2.5 text-left text-sm text-white/75 ring-1 ring-white/15 transition hover:bg-white/15 hover:text-white md:flex">
+        <i data-lucide="search" class="h-4 w-4"></i>
+        <span>Search biryani, karahi, burgers, chaat…</span>
+        <kbd class="ml-auto rounded-md bg-white/15 px-1.5 py-0.5 font-sans text-[11px] text-white/80">/</kbd>
+      </button>
+
+      <div class="ml-auto flex items-center gap-1 sm:gap-2">
+        <button type="button" data-open-search class="header-icon-btn md:hidden" aria-label="Search menu">
+          <i data-lucide="search" class="h-5 w-5"></i>
+        </button>
+
+        <button type="button" data-open-wishlist class="header-icon-btn" aria-label="Open wishlist">
+          <i data-lucide="heart" class="h-5 w-5"></i>
+          <span id="wishlistBadge" class="badge" hidden>0</span>
+        </button>
+
+        <button type="button" id="cartButton" data-open-cart class="relative flex items-center gap-3 rounded-full bg-brand-pink p-2.5 sm:gap-4 shadow-lg shadow-pink-900/30 transition hover:bg-brand-pinkdark sm:py-2 sm:pl-3 sm:pr-5" aria-label="Open cart">
+          <span class="relative">
+            <i data-lucide="shopping-cart" class="h-5 w-5"></i>
+            <span id="cartBadge" class="badge badge--light" hidden>0</span>
+          </span>
+          <span class="hidden text-left leading-tight sm:block">
+            <span class="block text-[10px] font-medium uppercase tracking-wider text-white/80">My Cart</span>
+            <span id="cartTotalHeader" class="block text-sm font-bold">Rs. 0</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- =============== 3. Hero carousel + promos =============== -->
+    <section class="mx-auto max-w-7xl px-4 pt-5 sm:px-6 sm:pt-8 lg:px-8" aria-label="Featured dishes">
+      <div class="grid gap-4 lg:grid-cols-3 lg:gap-6">
+        <div data-carousel class="relative h-[440px] overflow-hidden rounded-3xl bg-brand-deep shadow-card sm:h-[480px] lg:col-span-2 lg:h-[520px]" aria-roledescription="carousel" aria-label="Signature dishes">
+          <div data-carousel-track class="carousel-track" aria-live="off">
+            <!-- Slide 1 -->
+            <article class="carousel-slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
+              <img src="https://images.unsplash.com/photo-1633945274405-b6c8069047b0?w=1600&q=80" alt="Family biryani platter with raita and salad" class="slide-img absolute inset-0 h-full w-full object-cover" fetchpriority="high" data-fallback>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#2a0a2b] via-[#4E1150]/75 to-transparent sm:bg-gradient-to-r sm:via-[#6B1B6D]/70"></div>
+              <div class="relative z-10 flex h-full max-w-xl flex-col justify-end gap-3 px-6 pb-20 text-white sm:justify-center sm:gap-4 sm:px-20 sm:pb-12 lg:px-24">
+                <span class="slide-anim eyebrow w-fit rounded-full bg-brand-pink px-3 py-1 text-white"><i data-lucide="flame" class="h-3.5 w-3.5"></i> Signature · Serves 2–3</span>
+                <h2 class="slide-anim text-3xl font-extrabold leading-tight sm:text-5xl">Family Biryani Special</h2>
+                <p class="slide-anim max-w-md text-sm text-white/85 sm:text-base">Authentic Pakistani Spiced Rice with Chicken, Shami Kababs, Raita &amp; Salad.</p>
+                <p class="slide-anim text-sm text-white/80">Only <span class="text-2xl font-extrabold text-white sm:text-3xl">Rs. 999</span></p>
+                <div class="slide-anim flex flex-wrap gap-3">
+                  <button type="button" data-add-to-cart="2" class="btn-primary"><i data-lucide="shopping-cart" class="h-4 w-4"></i> Order Now</button>
+                  <a href="#menu" data-filter-category="Chicken Biryani House" class="btn-ghost">Biryani House</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Slide 2 -->
+            <article class="carousel-slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
+              <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=1600&q=80" alt="Rich masala handi served in a pot" class="slide-img absolute inset-0 h-full w-full object-cover" loading="lazy" data-fallback>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#2a0a2b] via-[#4E1150]/75 to-transparent sm:bg-gradient-to-r sm:via-[#6B1B6D]/70"></div>
+              <div class="relative z-10 flex h-full max-w-xl flex-col justify-end gap-3 px-6 pb-20 text-white sm:justify-center sm:gap-4 sm:px-20 sm:pb-12 lg:px-24">
+                <span class="slide-anim eyebrow w-fit rounded-full bg-brand-pink px-3 py-1 text-white"><i data-lucide="chef-hat" class="h-3.5 w-3.5"></i> Chef's Special</span>
+                <h2 class="slide-anim text-3xl font-extrabold leading-tight sm:text-5xl">Brain Masala Handi</h2>
+                <p class="slide-anim max-w-md text-sm text-white/85 sm:text-base">Chef's Special Rich &amp; Creamy Handi.</p>
+                <p class="slide-anim text-sm text-white/80">Only <span class="text-2xl font-extrabold text-white sm:text-3xl">Rs. 1,349</span></p>
+                <div class="slide-anim flex flex-wrap gap-3">
+                  <button type="button" data-add-to-cart="12" class="btn-primary"><i data-lucide="shopping-cart" class="h-4 w-4"></i> Order Now</button>
+                  <a href="#menu" data-filter-category="Restaurant Menu" class="btn-ghost">Restaurant Menu</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Slide 3 -->
+            <article class="carousel-slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
+              <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=1600&q=80" alt="Singaporean noodles with vegetables" class="slide-img absolute inset-0 h-full w-full object-cover" loading="lazy" data-fallback>
+              <div class="absolute inset-0 bg-gradient-to-t from-[#2a0a2b] via-[#4E1150]/75 to-transparent sm:bg-gradient-to-r sm:via-[#6B1B6D]/70"></div>
+              <div class="relative z-10 flex h-full max-w-xl flex-col justify-end gap-3 px-6 pb-20 text-white sm:justify-center sm:gap-4 sm:px-20 sm:pb-12 lg:px-24">
+                <span class="slide-anim eyebrow w-fit rounded-full bg-brand-pink px-3 py-1 text-white"><i data-lucide="sparkles" class="h-3.5 w-3.5"></i> Indo-Chinese Fusion</span>
+                <h2 class="slide-anim text-3xl font-extrabold leading-tight sm:text-5xl">Singaporean Noodles &amp; Manchurian</h2>
+                <p class="slide-anim max-w-md text-sm text-white/85 sm:text-base">Fusion Indo-Chinese Delights.</p>
+                <p class="slide-anim text-sm text-white/80">Starting from <span class="text-2xl font-extrabold text-white sm:text-3xl">Rs. 489</span></p>
+                <div class="slide-anim flex flex-wrap gap-3">
+                  <button type="button" data-add-to-cart="10" class="btn-primary"><i data-lucide="shopping-cart" class="h-4 w-4"></i> Order Noodles</button>
+                  <button type="button" data-add-to-cart="11" class="btn-ghost">Add Manchurian</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Controls -->
+          <button type="button" data-carousel-prev class="carousel-arrow absolute left-3 top-1/2 z-20 hidden -translate-y-1/2 sm:grid lg:left-4" aria-label="Previous slide">
+            <i data-lucide="chevron-left" class="h-5 w-5"></i>
+          </button>
+          <button type="button" data-carousel-next class="carousel-arrow absolute right-3 top-1/2 z-20 hidden -translate-y-1/2 sm:grid lg:right-4" aria-label="Next slide">
+            <i data-lucide="chevron-right" class="h-5 w-5"></i>
+          </button>
+
+          <div class="absolute inset-x-0 bottom-4 z-20 flex items-center justify-between gap-3 px-4 sm:bottom-5 sm:px-6">
+            <button type="button" data-carousel-prev class="carousel-arrow !h-9 !w-9 sm:hidden" aria-label="Previous slide">
+              <i data-lucide="chevron-left" class="h-4 w-4"></i>
+            </button>
+            <div data-carousel-dots class="mx-auto flex items-center"></div>
+            <div class="flex items-center gap-2">
+              <button type="button" data-carousel-toggle class="carousel-toggle carousel-arrow !h-9 !w-9" aria-label="Pause slideshow" aria-pressed="false">
+                <i data-lucide="pause" class="icon-pause h-4 w-4"></i>
+                <i data-lucide="play" class="icon-play h-4 w-4"></i>
+              </button>
+              <button type="button" data-carousel-next class="carousel-arrow !h-9 !w-9 sm:hidden" aria-label="Next slide">
+                <i data-lucide="chevron-right" class="h-4 w-4"></i>
+              </button>
+            </div>
+          </div>
+          <div class="absolute inset-x-0 bottom-0 z-20 h-1 bg-white/15">
+            <div data-carousel-progress class="h-full bg-brand-pink"></div>
+          </div>
+        </div>
+
+        <!-- Side promos -->
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 lg:gap-6">
+          <a href="https://wa.me/923000728687?text=Assalam%20o%20Alaikum!%20I%27d%20like%20to%20place%20an%20order%20with%20Cuisine%20Farnaj." target="_blank" rel="noopener"
+             class="promo-card flex-col justify-between gap-6 bg-gradient-to-br from-brand-pink to-[#9c0f6b] p-6 text-white sm:p-7">
+            <div class="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10"></div>
+            <div class="pointer-events-none absolute -bottom-16 right-10 h-40 w-40 rounded-full bg-white/10"></div>
+            <span class="relative grid h-12 w-12 place-items-center rounded-2xl bg-white text-[#15803d] shadow-lg">
+              <svg viewBox="0 0 24 24" class="h-7 w-7" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            </span>
+            <div class="relative">
+              <p class="eyebrow text-white/80">Direct Orders</p>
+              <p class="mt-1 text-2xl font-extrabold leading-tight">Order on WhatsApp</p>
+              <p class="mt-1 text-white/85">0300-0728-687 · Quick &amp; easy</p>
+            </div>
+            <span class="relative inline-flex items-center gap-2 text-sm font-semibold">Chat with us <i data-lucide="arrow-right" class="promo-arrow h-4 w-4"></i></span>
+          </a>
+
+          <button type="button" data-filter-category="Chaat Corner & Snacks" class="promo-card min-h-[220px] items-end bg-brand-deep p-6 text-white sm:p-7">
+            <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800&q=80" alt="" class="absolute inset-0 h-full w-full object-cover opacity-80 transition duration-700 hover:scale-105" loading="lazy" data-fallback>
+            <span class="absolute inset-0 bg-gradient-to-t from-[#2a0a2b] via-[#4E1150]/60 to-transparent"></span>
+            <span class="relative block">
+              <span class="eyebrow text-pink-300">Chaat Corner</span>
+              <span class="mt-1 block text-2xl font-extrabold leading-tight">Tangy, crunchy &amp; fresh</span>
+              <span class="mt-1 block text-white/85">Dahi Ballay, Chana Chaat &amp; more from <strong>Rs. 189</strong></span>
+              <span class="mt-3 inline-flex items-center gap-2 text-sm font-semibold">Explore snacks <i data-lucide="arrow-right" class="promo-arrow h-4 w-4"></i></span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Highlights -->
+      <ul class="mt-4 grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 lg:mt-6 lg:grid-cols-4 lg:gap-6">
+        <li class="feature">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-purple/10 text-brand-purple"><i data-lucide="chef-hat" class="h-5 w-5"></i></span>
+          <span><span class="block text-sm font-semibold">Real Home-Style Taste</span><span class="block text-xs text-slate-500">Recipes cooked like home</span></span>
+        </li>
+        <li class="feature">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-pink/10 text-brand-pink"><i data-lucide="leaf" class="h-5 w-5"></i></span>
+          <span><span class="block text-sm font-semibold">Freshly Prepared</span><span class="block text-xs text-slate-500">Cooked fresh on every order</span></span>
+        </li>
+        <li class="feature">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-purple/10 text-brand-purple"><i data-lucide="bike" class="h-5 w-5"></i></span>
+          <span><span class="block text-sm font-semibold">Flat Rs. 100 Delivery</span><span class="block text-xs text-slate-500">Hot to your doorstep</span></span>
+        </li>
+        <li class="feature">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-pink/10 text-brand-pink"><i data-lucide="clock" class="h-5 w-5"></i></span>
+          <span><span class="block text-sm font-semibold">Open Till 12:30 AM</span><span class="block text-xs text-slate-500">Every day from 11:00 AM</span></span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Wrapper limits the sticky bar to the menu area -->
+    <div>
+    <!-- =============== 4. Sticky category filter =============== -->
+    <nav id="categoryBar" aria-label="Menu categories" class="sticky z-30 mt-8 border-y border-purple-100 bg-white/90 backdrop-blur-md sm:mt-10">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div id="categoryTabs" class="no-scrollbar relative -mx-4 flex gap-2 overflow-x-auto px-4 py-3 sm:mx-0 sm:px-0"></div>
+      </div>
+    </nav>
+
+    <!-- =============== 5. Menu grid =============== -->
+    <section id="menu" class="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8" aria-labelledby="menuTitle">
+      <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="eyebrow text-brand-pink">Fresh from our kitchen</p>
+          <h2 id="menuTitle" class="mt-1 text-3xl font-extrabold text-slate-900 sm:text-4xl">Explore Our Menu</h2>
+        </div>
+        <p id="menuCount" class="text-sm font-medium text-slate-500" aria-live="polite"></p>
+      </div>
+
+      <div id="menuGrid" class="space-y-12"></div>
+
+      <noscript>
+        <p class="rounded-2xl bg-white p-6 text-center shadow-card">
+          Please enable JavaScript to browse the menu, or call <a class="font-semibold text-brand-pink" href="tel:+9251111728687">051-111-728-687</a> to order.
+        </p>
+      </noscript>
+    </section>
+    </div>
+
+    <!-- =============== Find us =============== -->
+    <section id="find-us" class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8" aria-labelledby="findUsTitle">
+      <div class="grid overflow-hidden rounded-3xl bg-white shadow-card lg:grid-cols-5">
+        <div class="relative overflow-hidden bg-gradient-to-br from-brand-purple to-brand-deep p-7 text-white sm:p-10 lg:col-span-2">
+          <div class="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-pink/25 blur-2xl"></div>
+          <p class="eyebrow relative text-pink-300">Visit or Order</p>
+          <h2 id="findUsTitle" class="relative mt-2 text-3xl font-extrabold leading-tight">Home-cooked taste,<br>delivered hot.</h2>
+          <p class="relative mt-3 text-white/80">Drop by our kitchen or place your order by phone or WhatsApp. We'll have it ready fresh.</p>
+
+          <ul class="relative mt-6 space-y-4 text-sm">
+            <li class="flex gap-3">
+              <i data-lucide="map-pin" class="mt-0.5 h-5 w-5 shrink-0 text-pink-300"></i>
+              <span>Main Peshawar Road, Near Kainat Travels, Rawalpindi/Islamabad</span>
+            </li>
+            <li class="flex gap-3">
+              <i data-lucide="phone" class="mt-0.5 h-5 w-5 shrink-0 text-pink-300"></i>
+              <a href="tel:+9251111728687" class="hover:underline">051-111-728-687</a>
+            </li>
+            <li class="flex gap-3">
+              <i data-lucide="clock" class="mt-0.5 h-5 w-5 shrink-0 text-pink-300"></i>
+              <span>Monday – Sunday: 11:00 AM – 12:30 AM</span>
+            </li>
+          </ul>
+
+          <div class="relative mt-8 flex flex-wrap gap-3">
+            <a href="https://maps.app.goo.gl/bR5gmqx4NbcTUPxJ9?g_st=aw" target="_blank" rel="noopener" class="btn-primary">
+              <i data-lucide="navigation" class="h-4 w-4"></i> Get Directions
+            </a>
+            <a href="tel:+9251111728687" class="btn-ghost"><i data-lucide="phone-call" class="h-4 w-4"></i> Call Now</a>
+          </div>
+        </div>
+
+        <div class="min-h-[320px] lg:col-span-3">
+          <iframe
+            title="Cuisine Farnaj location on Google Maps"
+            src="https://maps.google.com/maps?q=FARNAJ%20Cuisine%2C%20CB-175%20Lane%203%2C%20near%20Radio%20Pakistan%2C%20Rawalpindi&z=16&output=embed"
+            class="h-full min-h-[320px] w-full border-0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =============== 7. Footer =============== -->
+  <footer class="bg-brand-purple text-white">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 lg:gap-16 lg:px-8">
+      <!-- Column 1 -->
+      <div>
+        <a href="#top" data-scroll-top class="inline-flex items-center gap-3" aria-label="Cuisine Farnaj – back to top">
+          <span class="grid h-12 w-12 place-items-center rounded-2xl bg-white text-brand-purple">
+            <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z"/>
+              <path d="M6 17h12" stroke="#E40066"/>
+            </svg>
+          </span>
+          <span class="leading-tight">
+            <span class="block text-xl font-extrabold tracking-[0.12em]">CUISINE <span class="text-pink-300">FARNAJ</span></span>
+            <span class="block text-xs italic text-white/75">The Real Home Chef</span>
+          </span>
+        </a>
+        <ul class="mt-6 space-y-3 text-sm text-white/85">
+          <li>
+            <a href="tel:+9251111728687" class="group flex items-center gap-3 hover:text-white">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/10 group-hover:bg-brand-pink"><i data-lucide="phone" class="h-4 w-4"></i></span>
+              051-111-728-687
+            </a>
+          </li>
+          <li>
+            <a href="mailto:orders@farnaj.com.pk" class="group flex items-center gap-3 hover:text-white">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/10 group-hover:bg-brand-pink"><i data-lucide="mail" class="h-4 w-4"></i></span>
+              orders@farnaj.com.pk
+            </a>
+          </li>
+          <li>
+            <a href="https://maps.app.goo.gl/bR5gmqx4NbcTUPxJ9?g_st=aw" target="_blank" rel="noopener" class="group flex items-start gap-3 hover:text-white">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/10 group-hover:bg-brand-pink"><i data-lucide="map-pin" class="h-4 w-4"></i></span>
+              <span class="pt-1.5">Main Peshawar Road, Near Kainat Travels, Rawalpindi/Islamabad</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 2 -->
+      <div>
+        <h3 class="text-lg font-bold">Opening Timings</h3>
+        <div class="mt-5 rounded-2xl bg-white/10 p-5 ring-1 ring-white/10">
+          <div class="flex items-start gap-3">
+            <i data-lucide="clock" class="mt-0.5 h-5 w-5 shrink-0 text-pink-300"></i>
+            <div>
+              <p class="font-semibold">Monday – Sunday</p>
+              <p class="text-white/85">11:00 AM – 12:30 AM</p>
+            </div>
+          </div>
+          <p data-open-status class="open-status mt-4"><span data-open-status-text>Checking hours…</span></p>
+        </div>
+
+        <h3 class="mt-8 text-lg font-bold">Our Menu</h3>
+        <ul class="mt-4 grid grid-cols-1 gap-2 text-sm text-white/80 min-[420px]:grid-cols-2 sm:grid-cols-1">
+          <li><a href="#menu" data-filter-category="Chicken Biryani House" class="hover:text-pink-300">Chicken Biryani House</a></li>
+          <li><a href="#menu" data-filter-category="Restaurant Menu" class="hover:text-pink-300">Restaurant Menu</a></li>
+          <li><a href="#menu" data-filter-category="Dhaba Menu" class="hover:text-pink-300">Dhaba Menu</a></li>
+          <li><a href="#menu" data-filter-category="Chaat Corner & Snacks" class="hover:text-pink-300">Chaat Corner &amp; Snacks</a></li>
+          <li><a href="#menu" data-filter-category="Sides & Sauces" class="hover:text-pink-300">Sides &amp; Sauces</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3 -->
+      <div>
+        <h3 class="text-lg font-bold">Follow Us</h3>
+        <p class="mt-2 text-sm text-white/75">Deals, new dishes and behind-the-scenes from our kitchen.</p>
+        <div class="mt-5 flex gap-3">
+          <!-- TODO: replace # with the official Facebook page URL -->
+          <a href="#" target="_blank" rel="noopener" class="grid h-11 w-11 place-items-center rounded-full bg-white/10 transition hover:-translate-y-0.5 hover:bg-[#1877F2]" aria-label="Cuisine Farnaj on Facebook">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
+          </a>
+          <!-- TODO: replace # with the official Instagram profile URL -->
+          <a href="#" target="_blank" rel="noopener" class="grid h-11 w-11 place-items-center rounded-full bg-white/10 transition hover:-translate-y-0.5 hover:bg-gradient-to-tr hover:from-[#F58529] hover:via-[#DD2A7B] hover:to-[#8134AF]" aria-label="Cuisine Farnaj on Instagram">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg>
+          </a>
+          <a href="https://wa.me/923000728687" target="_blank" rel="noopener" class="grid h-11 w-11 place-items-center rounded-full bg-white/10 transition hover:-translate-y-0.5 hover:bg-[#15803d]" aria-label="Chat with Cuisine Farnaj on WhatsApp">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          </a>
+        </div>
+
+        <h3 class="mt-8 text-lg font-bold">Legal</h3>
+        <!-- TODO: point these to the real policy pages -->
+        <ul class="mt-4 space-y-2 text-sm text-white/80">
+          <li><a href="#" class="hover:text-pink-300">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-pink-300">Terms &amp; Conditions</a></li>
+          <li><a href="#" class="hover:text-pink-300">Refund &amp; Cancellation Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-white/10">
+      <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-center text-xs text-white/70 sm:flex-row sm:px-6 sm:text-left lg:px-8">
+        <p>© <span data-current-year>2026</span> Cuisine Farnaj – The Real Home Chef. All rights reserved.</p>
+        <p>Freshly cooked in Rawalpindi / Islamabad</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =============== Floating controls =============== -->
+  <div class="fixed bottom-5 right-4 z-40 flex flex-col items-center gap-3 sm:bottom-6 sm:right-6">
+    <button type="button" id="backToTop" data-scroll-top class="fab bg-brand-pink hover:bg-brand-pinkdark" aria-label="Back to top">
+      <i data-lucide="arrow-up" class="h-5 w-5"></i>
+    </button>
+    <button type="button" data-open-search class="fab bg-brand-purple hover:bg-brand-deep" aria-label="Search menu">
+      <i data-lucide="search" class="h-5 w-5"></i>
+    </button>
+  </div>
+
+  <!-- =============== 6. Cart drawer =============== -->
+  <div id="cartDrawer" class="overlay" aria-hidden="true">
+    <div class="overlay__backdrop" data-overlay-close></div>
+    <aside class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <header class="flex items-center justify-between border-b border-purple-100 px-5 py-4">
+        <div class="flex items-center gap-3">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-brand-pink/10 text-brand-pink"><i data-lucide="shopping-bag" class="h-5 w-5"></i></span>
+          <div>
+            <h2 id="cartTitle" class="text-lg font-bold text-slate-900">Your Order</h2>
+            <p id="cartCountLabel" class="text-xs text-slate-500">0 items</p>
+          </div>
+        </div>
+        <button type="button" class="drawer-close icon-btn h-10 w-10 text-slate-500 hover:bg-brand-bg hover:text-slate-900" data-overlay-close aria-label="Close cart">
+          <i data-lucide="x" class="h-5 w-5"></i>
+        </button>
+      </header>
+
+      <div id="cartEmpty" class="flex flex-1 flex-col items-center justify-center px-8 text-center">
+        <span class="grid h-24 w-24 place-items-center rounded-full bg-brand-bg text-brand-purple"><i data-lucide="shopping-bag" class="h-10 w-10"></i></span>
+        <h3 class="mt-5 text-lg font-bold text-slate-900">Your cart is empty</h3>
+        <p class="mt-1 text-sm text-slate-500">Add some delicious home-style dishes to get started.</p>
+        <button type="button" data-overlay-close class="btn-primary mt-6">Browse Menu</button>
+      </div>
+
+      <div id="cartFilled" class="flex min-h-0 flex-1 flex-col" hidden>
+        <form id="checkoutForm" class="flex min-h-0 flex-1 flex-col" novalidate>
+          <div class="flex-1 overflow-y-auto overscroll-contain px-5 pb-5">
+            <div class="flex items-center justify-between pt-4">
+              <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Items</span>
+              <button type="button" id="clearCartBtn" class="text-xs font-semibold text-brand-pink hover:underline">Clear all</button>
+            </div>
+            <ul id="cartList" class="divide-y divide-purple-50"></ul>
+
+            <fieldset class="mt-2 rounded-2xl bg-brand-bg p-4">
+              <legend class="sr-only">Order type and delivery details</legend>
+              <p class="mb-3 text-sm font-bold text-slate-900">Delivery Details</p>
+              <div class="segmented grid grid-cols-2 gap-1 rounded-xl bg-white p-1 ring-1 ring-purple-100">
+                <button type="button" data-order-type="delivery" aria-pressed="true"><i data-lucide="bike" class="h-4 w-4"></i> Delivery</button>
+                <button type="button" data-order-type="pickup" aria-pressed="false"><i data-lucide="store" class="h-4 w-4"></i> Pick-up</button>
+              </div>
+
+              <div class="mt-4 space-y-3">
+                <div>
+                  <label for="customerName" class="field-label">Full name</label>
+                  <input id="customerName" name="customerName" type="text" autocomplete="name" class="field-input" placeholder="e.g. Ali Khan" aria-describedby="customerNameError" required>
+                  <p id="customerNameError" class="field-error" hidden></p>
+                </div>
+                <div>
+                  <label for="customerPhone" class="field-label">Phone number</label>
+                  <input id="customerPhone" name="customerPhone" type="tel" inputmode="tel" autocomplete="tel" class="field-input" placeholder="0300-1234567" aria-describedby="customerPhoneError" required>
+                  <p id="customerPhoneError" class="field-error" hidden></p>
+                </div>
+                <div id="addressGroup">
+                  <label for="customerAddress" class="field-label">Delivery address</label>
+                  <textarea id="customerAddress" name="customerAddress" rows="2" autocomplete="street-address" class="field-input resize-none" placeholder="House #, Street, Area, Rawalpindi / Islamabad" aria-describedby="customerAddressError"></textarea>
+                  <p id="customerAddressError" class="field-error" hidden></p>
+                </div>
+                <div>
+                  <label for="customerNotes" class="field-label">Order notes <span class="font-normal text-slate-400">(optional)</span></label>
+                  <input id="customerNotes" name="customerNotes" type="text" class="field-input" placeholder="e.g. Less spicy, extra raita">
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="border-t border-purple-100 bg-white px-5 py-4 shadow-[0_-10px_24px_-18px_rgba(30,8,31,0.35)]">
+            <dl class="space-y-1.5 text-sm">
+              <div class="flex justify-between"><dt class="text-slate-500">Subtotal</dt><dd id="cartSubtotal" class="font-semibold text-slate-800">Rs. 0</dd></div>
+              <div class="flex justify-between"><dt class="text-slate-500">Delivery Fee</dt><dd id="cartDelivery" class="font-semibold text-slate-800">Rs. 100</dd></div>
+              <div class="mt-2 flex items-center justify-between border-t border-dashed border-purple-200 pt-2.5">
+                <dt class="font-bold text-slate-900">Grand Total</dt>
+                <dd id="cartTotal" class="text-xl font-extrabold text-brand-purple">Rs. 0</dd>
+              </div>
+            </dl>
+            <button type="submit" id="checkoutBtn" class="btn-whatsapp mt-4 w-full">
+              <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+              Order via WhatsApp
+            </button>
+            <p class="mt-2 text-center text-[11px] text-slate-400">Your order is sent to 0300-0728-687 — just press send in WhatsApp.</p>
+          </div>
+        </form>
+      </div>
+    </aside>
+  </div>
+
+  <!-- =============== Wishlist drawer =============== -->
+  <div id="wishlistDrawer" class="overlay" aria-hidden="true">
+    <div class="overlay__backdrop" data-overlay-close></div>
+    <aside class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="wishlistTitle">
+      <header class="flex items-center justify-between border-b border-purple-100 px-5 py-4">
+        <div class="flex items-center gap-3">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-brand-pink/10 text-brand-pink"><i data-lucide="heart" class="h-5 w-5"></i></span>
+          <div>
+            <h2 id="wishlistTitle" class="text-lg font-bold text-slate-900">Your Wishlist</h2>
+            <p id="wishlistCountLabel" class="text-xs text-slate-500">0 saved dishes</p>
+          </div>
+        </div>
+        <button type="button" class="drawer-close icon-btn h-10 w-10 text-slate-500 hover:bg-brand-bg hover:text-slate-900" data-overlay-close aria-label="Close wishlist">
+          <i data-lucide="x" class="h-5 w-5"></i>
+        </button>
+      </header>
+
+      <div id="wishlistEmpty" class="flex flex-1 flex-col items-center justify-center px-8 text-center">
+        <span class="grid h-24 w-24 place-items-center rounded-full bg-brand-bg text-brand-pink"><i data-lucide="heart" class="h-10 w-10"></i></span>
+        <h3 class="mt-5 text-lg font-bold text-slate-900">No favourites yet</h3>
+        <p class="mt-1 text-sm text-slate-500">Tap the heart on any dish to save it here for later.</p>
+        <button type="button" data-overlay-close class="btn-primary mt-6">Browse Menu</button>
+      </div>
+
+      <ul id="wishlistList" class="flex-1 divide-y divide-purple-50 overflow-y-auto overscroll-contain px-5" hidden></ul>
+
+      <div class="border-t border-purple-100 px-5 py-4">
+        <button type="button" data-open-cart class="btn-primary w-full"><i data-lucide="shopping-cart" class="h-4 w-4"></i> View Cart</button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- =============== Search modal =============== -->
+  <div id="searchModal" class="overlay overlay--modal" aria-hidden="true">
+    <div class="overlay__backdrop" data-overlay-close></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+      <h2 id="searchTitle" class="sr-only">Search the menu</h2>
+      <form role="search" class="flex items-center gap-3 border-b border-purple-100 px-4 py-3 sm:px-5">
+        <i data-lucide="search" class="h-5 w-5 shrink-0 text-brand-pink"></i>
+        <label for="searchInput" class="sr-only">Search dishes</label>
+        <input id="searchInput" type="search" autocomplete="off" enterkeyhint="search" aria-controls="searchResults"
+               placeholder="Search dishes, e.g. biryani, karahi, chaat…"
+               class="min-w-0 flex-1 bg-transparent py-2 text-base text-slate-900 placeholder:text-slate-400 focus:outline-none">
+        <button type="button" data-overlay-close class="icon-btn h-9 w-9 shrink-0 text-slate-500 hover:bg-brand-bg" aria-label="Close search">
+          <i data-lucide="x" class="h-5 w-5"></i>
+        </button>
+      </form>
+
+      <div class="max-h-[min(65vh,540px)] overflow-y-auto overscroll-contain p-3 sm:p-4">
+        <div id="searchSuggestions" class="p-2">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Popular searches</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <button type="button" data-suggestion="Biryani" class="category-tab">Biryani</button>
+            <button type="button" data-suggestion="Karahi" class="category-tab">Karahi</button>
+            <button type="button" data-suggestion="Burger" class="category-tab">Burger</button>
+            <button type="button" data-suggestion="Chaat" class="category-tab">Chaat</button>
+            <button type="button" data-suggestion="Noodles" class="category-tab">Noodles</button>
+            <button type="button" data-suggestion="Sandwich" class="category-tab">Sandwich</button>
+          </div>
+        </div>
+        <p id="searchStatus" class="sr-only" aria-live="polite"></p>
+        <ul id="searchResults" class="space-y-1"></ul>
+        <div id="searchEmpty" class="py-10 text-center" hidden>
+          <span class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-brand-bg text-brand-purple"><i data-lucide="search-x" class="h-7 w-7"></i></span>
+          <p class="mt-4 font-semibold text-slate-900">No dishes found</p>
+          <p class="mt-1 text-sm text-slate-500">Try another name, or call us at 051-111-728-687.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toasts -->
+  <div id="toastRegion" role="status" aria-live="polite"></div>
+</body>
+</html>
